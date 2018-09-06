@@ -1,30 +1,10 @@
 <template>
   <v-app>
-    <v-navigation-drawer persistent
-                         :mini-variant="miniVariant"
-                         :clipped="true"
-                         v-model="drawer"
-                         enable-resize-watcher
-                         fixed
-                         app>
-      <v-list>
-        <template v-for="(item, i) in items">
-          <v-list-tile :to="item.to"
-                       :key="item.title">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </template>
-      </v-list>
-    </v-navigation-drawer>
+    <navigation-list :items="items" :drawer="drawer" :miniVariant="miniVariant"></navigation-list>
     <v-toolbar app
                :clipped-left="true">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-avatar><img src="@/assets/plane.png"></v-avatar>
+      <v-avatar><img src="@/assets/ourlogo.png"></v-avatar>
       <v-btn icon
              @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
@@ -34,7 +14,7 @@
     <v-content>
       <router-view/>
     </v-content>
-    <v-footer app>
+    <v-footer app fixed>
       <v-layout justify-center
                 row
                 wrap>
@@ -46,8 +26,12 @@
 
 <script>
 import menu from '@/menu'
+import NavigationList from '@/components/NavigationList'
 
 export default {
+  components: {
+    NavigationList
+  },
   data () {
     return {
       drawer: true,
